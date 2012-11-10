@@ -121,6 +121,7 @@ define(['area'], function(Area) {
 
         playSound: function(name) {
             var sound = this.enabled && this.getSound(name);
+            sound.volume = 0.1;
             if(sound) {
                 sound.play();
             }
@@ -170,7 +171,7 @@ define(['area'], function(Area) {
                 if(music.sound.fadingOut) {
                     this.fadeInMusic(music);
                 } else {
-                    music.sound.volume = 1;
+                    music.sound.volume = 0.1;
                     music.sound.play();
                 }
                 this.currentMusic = music;
@@ -211,10 +212,10 @@ define(['area'], function(Area) {
                     var step = 0.01,
                         volume = music.sound.volume + step;
 
-                    if(self.enabled && volume < 1 - step) {
+                    if(self.enabled && volume < 0.1 - step) {
                         music.sound.volume = volume;
                     } else {
-                        music.sound.volume = 1;
+                        music.sound.volume = 0.1;
                         self.clearFadeIn(music);
                     }
                 }, 30);
