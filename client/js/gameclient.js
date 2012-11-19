@@ -237,6 +237,12 @@ define(['player', 'entityfactory', 'lib/bison'], function(Player, EntityFactory,
                         target = data[6];
                     }
                 }
+                // else if(Types.isHorse(kind)) {
+                //     orientation = data[5];
+                //     if(data.length > 6) {
+                //         target = data[6];
+                //     }
+                // }
 
                 var character = EntityFactory.createEntity(kind, id, name);
 

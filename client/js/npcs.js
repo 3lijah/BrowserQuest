@@ -99,6 +99,12 @@ define(['npc'], function(Npc) {
             init: function(id) {
                 this._super(id, Types.Entities.OCTOCAT, 1);
             }
+        }),
+
+        Horse: Npc.extend({
+            init: function(id) {
+                this._super(id, Types.Entities.HORSE, 1);
+            }
         })
     };
 

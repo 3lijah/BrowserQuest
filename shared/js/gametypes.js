@@ -89,7 +89,10 @@ Types = {
         GOLDENSWORD: 63,
         MORNINGSTAR: 64,
         AXE: 65,
-        BLUESWORD: 66
+        BLUESWORD: 66,
+
+        // Horses
+        HORSE:70
     },
 
     Orientations: {
@@ -177,6 +180,8 @@ var kinds = {
     desertnpc: [Types.Entities.DESERTNPC, "npc"],
     lavanpc: [Types.Entities.LAVANPC, "npc"],
 
+    horse: [Types.Entities.HORSE, "horse"],
+
     getType: function(kind) {
         return kinds[Types.getKindAsString(kind)][1];
     }
@@ -221,8 +226,12 @@ Types.isNpc = function(kind) {
     return kinds.getType(kind) === "npc";
 };
 
+Types.isHorse = function(kind) {
+    return kinds.getType(kind) === "horse";
+};
+
 Types.isCharacter = function(kind) {
-    return Types.isMob(kind) || Types.isNpc(kind) || Types.isPlayer(kind);
+    return Types.isMob(kind) || Types.isNpc(kind) || Types.isPlayer(kind) || Types.isHorse(kind);
 };
 
 Types.isArmor = function(kind) {
@@ -288,7 +297,7 @@ Types.forEachArmor = function(callback) {
 
 Types.forEachMobOrNpcKind = function(callback) {
     Types.forEachKind(function(kind, kindName) {
-        if(Types.isMob(kind) || Types.isNpc(kind)) {
+        if(Types.isMob(kind) || Types.isNpc(kind) || Types.isHorse(kind)) {
             callback(kind, kindName);
         }
     });

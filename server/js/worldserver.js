@@ -7,6 +7,7 @@ var cls = require("./lib/class"),
     Mob = require('./mob'),
     Map = require('./map'),
     Npc = require('./npc'),
+    Horse = require('./horse'),
     Player = require('./player'),
     Item = require('./item'),
     MobArea = require('./mobarea'),
@@ -38,6 +39,7 @@ module.exports = World = cls.Class.extend({
         this.equipping = {};
         this.hurt = {};
         this.npcs = {};
+        this.horses = {};
         this.mobAreas = [];
         this.chestAreas = [];
         this.groups = {};
@@ -375,6 +377,12 @@ module.exports = World = cls.Class.extend({
         return npc;
     },
 
+    addHorse: function(kind, x, y) {
+        var horse = new Horse('8'+x+''+y, kind, x, y);
+        this.addEntity(horse);
+        this.horses[horse.id] = horse;
+    },
+
     addItem: function(item) {
         this.addEntity(item);
         this.items[item.id] = item;
@@ -593,6 +601,9 @@ module.exports = World = cls.Class.extend({
             }
             if(Types.isItem(kind)) {
                 self.addStaticItem(self.createItem(kind, pos.x + 1, pos.y));
+            }
+            if(Types.isHorse(kind)) {
+                self.addHorse(kind, pos.x + 1, pos.y);
             }
         });
     },

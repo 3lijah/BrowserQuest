@@ -1,5 +1,5 @@
 
-define(['mobs', 'items', 'npcs', 'warrior', 'chest'], function(Mobs, Items, NPCs, Warrior, Chest) {
+define(['mobs', 'items', 'npcs', 'warrior', 'chest', 'horse'], function(Mobs, Items, NPCs, Warrior, Chest, Horse) {
 
     var EntityFactory = {};
 
@@ -206,6 +206,12 @@ define(['mobs', 'items', 'npcs', 'warrior', 'chest'], function(Mobs, Items, NPCs
 
     EntityFactory.builders[Types.Entities.LAVANPC] = function(id) {
         return new NPCs.LavaNpc(id);
+    };
+
+    //====== Horse ======
+
+    EntityFactory.builders[Types.Entities.HORSE] = function(id) {
+        return new Horse(id);
     };
 
     return EntityFactory;
