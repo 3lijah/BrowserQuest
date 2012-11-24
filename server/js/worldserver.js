@@ -378,9 +378,12 @@ module.exports = World = cls.Class.extend({
     },
 
     addHorse: function(kind, x, y) {
+        var self = this;
         var horse = new Horse('8'+x+''+y, kind, x, y);
         this.addEntity(horse);
         this.horses[horse.id] = horse;
+
+        horse.onMove(self.onMobMoveCallback.bind(self));
     },
 
     addItem: function(item) {

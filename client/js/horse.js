@@ -5,13 +5,18 @@ define(['character'], function(Character) {
             this._super(id, Types.Entities.HORSE, 1);
             this.speed = 1;
             this.luck = 0.5;
-            this.moveSpeed = 200;
-            this.atkSpeed = 40;
-            this.idleSpeed = 500;
+            this.moveSpeed = 1000;
+            this.idleSpeed = 1000;
+            console.log("Horse ID = " + id);
         },
 
         gallop: function() {
 
+        },
+
+        moveTo_: function(x, y, callback) {
+            console.log("horse moving to " + x + ", " + y);
+            this._super(x, y, callback);
         }
     });
 

@@ -598,6 +598,7 @@ function(InfoManager, BubbleManager, Renderer, Map, Animation, Sprite, AnimatedT
 
             if(entity) {
                 if(entity instanceof Character || entity instanceof Chest) {
+                    
                     this.entityGrid[y][x][entity.id] = entity;
                     if(!(entity instanceof Player)) {
                         this.pathingGrid[y][x] = 1;
