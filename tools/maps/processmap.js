@@ -37,6 +37,7 @@ module.exports = function processMap(json, options) {
     if(mode === "server") {
         map.roamingAreas = [];
         map.chestAreas = [];
+        map.finishZone = [];
         map.staticChests = [];
         map.staticEntities = {};
     }
@@ -182,6 +183,18 @@ module.exports = function processMap(json, options) {
                 map.staticChests.push(newChest);
             });
         }
+        else if(objectlayer.name === "finish" && mode === "server") {
+            log.info("Processing finish...");
+            _.each(objectlayer.object, function(finishz) {
+                var finish_zone = {
+                    x: finishz.x / map.tilesize,
+                    y: finishz.y / map.tilesize,
+                    w: finishz.width / map.tilesize,
+                    h: finishz.height / map.tilesize,
+                };
+                map.finishZone.push(finish_zone);
+            });
+        }
         else if(objectlayer.name === "music" && mode === "client") {
             log.info("Processing music areas...");
             _.each(objectlayer.object, function(music) {
@@ -199,6 +212,7 @@ module.exports = function processMap(json, options) {
             log.info("Processing check points...");
             var count = 0;
             _.each(objectlayer.object, function(checkpoint) {
+                console.log(checkpoint);
                 var cp = {
                     id: ++count,
                     x: checkpoint.x / map.tilesize,

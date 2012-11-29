@@ -2,7 +2,7 @@
 import commands
 import sys
 
-SRC_FILE = 'tmx/map.tmx'
+SRC_FILE = 'tmx/dd.tmx'
 
 TEMP_FILE = SRC_FILE+'.json'
 

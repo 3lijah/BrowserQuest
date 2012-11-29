@@ -383,7 +383,7 @@ module.exports = World = cls.Class.extend({
         this.addEntity(horse);
         this.horses[horse.id] = horse;
 
-        horse.onMove(self.onMobMoveCallback.bind(self));
+        horse.onMove(self.onHorseMoveCallback.bind(self));
     },
 
     addItem: function(item) {
@@ -669,6 +669,16 @@ module.exports = World = cls.Class.extend({
         }
 
         return item;
+    },
+
+    onHorseMoveCallback: function(horse)
+    {
+        if (this.map.isInFinishZone(horse.x, horse.y))
+        {
+            horse.stopGallop();
+        }
+        this.pushToAdjacentGroups(horse.group, new Messages.Move(horse));
+        this.handleEntityGroupMembership(horse);
     },
 
     onMobMoveCallback: function(mob) {

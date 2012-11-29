@@ -4,16 +4,28 @@ var Horse = Character.extend({
     init: function (id, kind, x, y) {
         this._super(id, 'horse', kind, x, y);
 
+        this.setSpeed();
+
         this.initGallop();
+    },
+
+    setSpeed: function()
+    {
+        this.speed =  (Math.random() * 2000) + 2000;
     },
 
     initGallop: function()
     {
         var self = this;
 
-        setInterval(function () {
+        this.gallopInterval = setInterval(function () {
           self.move(self.x-1,self.y);
-        }, 20000);
+        }, this.speed);
+    },
+
+    stopGallop: function()
+    {
+        clearInterval(this.gallopInterval);
     },
 
     onMove: function (callback) {
@@ -21,10 +33,6 @@ var Horse = Character.extend({
     },
 
     move: function (x, y) {
-        console.log("galloping to " + (x));
-
-        console.log(this.moveCallback);
-
         this.setPosition(x, y);
         if (this.moveCallback) {
             this.moveCallback(this);

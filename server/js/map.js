@@ -28,11 +28,13 @@ var Map = cls.Class.extend({
     },
 
     initMap: function (thismap) {
+        console.log(thismap);
         this.width = thismap.width;
         this.height = thismap.height;
         this.collisions = thismap.collisions;
         this.mobAreas = thismap.roamingAreas;
         this.chestAreas = thismap.chestAreas;
+        this.finishZone = thismap.finishZone;
         this.staticChests = thismap.staticChests;
         this.staticEntities = thismap.staticEntities;
         this.isLoaded = true;
@@ -106,6 +108,23 @@ var Map = cls.Class.extend({
             return false;
         }
         return this.grid[y][x] === 1;
+    },
+
+    isInFinishZone: function(x, y)
+    {
+        var in_zone = false;
+        _.each(this.finishZone, function(zone) {
+            if (x >= zone.x &&
+                x < zone.x + zone.w &&
+                y >= zone.y &&
+                y < zone.y + zone.h)
+            {
+                in_zone = true;
+                return false;
+            }
+        });
+
+        return in_zone;
     },
 
     GroupIdToGroupPosition: function (id) {
@@ -204,7 +223,7 @@ var Map = cls.Class.extend({
     getRandomStartingPosition: function () {
         var nbAreas = _.size(this.startingAreas),
             i = Utils.randomInt(0, nbAreas-1),
-            area = this.startingAreas[i];
+            area = this.startingAreas[0];
 
         return area.getRandomPosition();
     }
