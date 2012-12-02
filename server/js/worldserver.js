@@ -16,7 +16,8 @@ var cls = require("./lib/class"),
     Messages = require('./message'),
     Properties = require("./properties"),
     Utils = require("./utils"),
-    Types = require("../../shared/js/gametypes");
+    Types = require("../../shared/js/gametypes"),
+    Timer = require("./timer");
 
 // ======= GAME SERVER ========
 
@@ -67,6 +68,14 @@ module.exports = World = cls.Class.extend({
             if(!player.hasEnteredGame) {
                 self.incrementPlayerCount();
             }
+
+            this.pushToPlayer(player, new Messages.Timer(this.timer.seconds));
+            this.timer.startTimer();
+            this.timer.onTimeEnd(function() {
+                _.each(self.horses, function(horse) {
+                    horse.initGallop();
+                });
+            });
 
             // Number of players in this world
             self.pushToPlayer(player, new Messages.Population(self.playerCount));
@@ -151,6 +160,7 @@ module.exports = World = cls.Class.extend({
         var self = this;
 
         this.map = new Map(mapFilePath);
+        this.timer = new Timer(30);
 
         this.map.ready(function() {
             self.initZoneGroups();

@@ -5,8 +5,6 @@ var Horse = Character.extend({
         this._super(id, 'horse', kind, x, y);
 
         this.setSpeed();
-
-        this.initGallop();
     },
 
     setSpeed: function()

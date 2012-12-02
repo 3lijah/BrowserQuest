@@ -79,6 +79,17 @@ Messages.Health = Message.extend({
     }
 });
 
+Messages.Timer = Message.extend({
+    init: function(time) {
+        console.log("time: " + time);
+        this.time = time;
+    },
+    serialize: function() {
+        return [Types.Messages.TIMER,
+                this.time];
+    }
+});
+
 Messages.HitPoints = Message.extend({
     init: function (maxHitPoints) {
         this.maxHitPoints = maxHitPoints;

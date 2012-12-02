@@ -31,6 +31,7 @@ define(['player', 'entityfactory', 'lib/bison'], function(Player, EntityFactory,
             this.handlers[Types.Messages.KILL] = this.receiveKill;
             this.handlers[Types.Messages.HP] = this.receiveHitPoints;
             this.handlers[Types.Messages.BLINK] = this.receiveBlink;
+            this.handlers[Types.Messages.TIMER] = this.receiveTimer;
 
             this.useBison = false;
             this.enable();
@@ -376,6 +377,19 @@ define(['player', 'entityfactory', 'lib/bison'], function(Player, EntityFactory,
             if(this.blink_callback) {
                 this.blink_callback(id);
             }
+        },
+
+        receiveTimer: function(data) {
+            console.log("receive timer");
+            var seconds_left = data[1];
+
+            if (this.timer_callback) {
+                this.timer_callback(seconds_left);
+            }
+        },
+
+        onReceiveTimer: function(callback) {
+            this.timer_callback = callback;
         },
 
         onDispatched: function(callback) {

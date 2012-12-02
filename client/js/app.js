@@ -165,6 +165,15 @@ define(['jquery', 'storage'], function($, Storage) {
             }, 500)
         },
 
+        setClock: function() {
+            this.time = this.game.clock.seconds;
+            d = Number(this.time);
+            var h = Math.floor(d / 3600);
+            var m = Math.floor(d % 3600 / 60);
+            var s = Math.floor(d % 3600 % 60);
+            $("#timer").html((h > 0 ? h + ":" : "") + (m > 0 ? (h > 0 && m < 10 ? "0" : "") + m + ":" : "0:") + (s < 10 ? "0" : "") + s);
+        },
+
         toggleButton: function() {
             var name = $('#parchment input').val(),
                 $play = $('#createcharacter .play');

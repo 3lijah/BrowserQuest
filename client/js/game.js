@@ -1,10 +1,10 @@
 
 define(['infomanager', 'bubble', 'renderer', 'map', 'animation', 'sprite', 'tile',
         'warrior', 'gameclient', 'audio', 'updater', 'transition', 'pathfinder',
-        'item', 'mob', 'npc', 'horse', 'player', 'character', 'chest', 'mobs', 'exceptions', 'config', '../../shared/js/gametypes'],
+        'item', 'mob', 'npc', 'horse', 'player', 'character', 'chest', 'mobs', 'exceptions', 'config', 'clock', '../../shared/js/gametypes'],
 function(InfoManager, BubbleManager, Renderer, Map, Animation, Sprite, AnimatedTile,
          Warrior, GameClient, AudioManager, Updater, Transition, Pathfinder,
-         Item, Mob, Npc, Horse, Player, Character, Chest, Mobs, Exceptions, config) {
+         Item, Mob, Npc, Horse, Player, Character, Chest, Mobs, Exceptions, config, Clock) {
 
     var Game = Class.extend({
         init: function(app) {
@@ -69,6 +69,9 @@ function(InfoManager, BubbleManager, Renderer, Map, Animation, Sprite, AnimatedT
                                 "platearmor", "redarmor", "goldenarmor", "firefox", "death", "sword1", "axe", "chest", "horse",
                                 "sword2", "redsword", "bluesword", "goldensword", "item-sword2", "item-axe", "item-redsword", "item-bluesword", "item-goldensword", "item-leatherarmor", "item-mailarmor",
                                 "item-platearmor", "item-redarmor", "item-goldenarmor", "item-flask", "item-cake", "item-burger", "morningstar", "item-morningstar", "item-firepotion"];
+
+
+            this.clock = new Clock();
         },
 
         setup: function($bubbleContainer, canvas, background, foreground, input) {
@@ -1480,6 +1483,16 @@ function(InfoManager, BubbleManager, Renderer, Map, Animation, Sprite, AnimatedT
                     if(self.disconnect_callback) {
                         self.disconnect_callback(message);
                     }
+                });
+
+                self.client.onReceiveTimer(function(seconds) {
+                    if (self.clock) {
+                        self.clock.start(seconds);
+                    }
+                });
+
+                self.clock.onTick(function() {
+                    self.app.setClock();
                 });
 
                 self.gamestart_callback();
