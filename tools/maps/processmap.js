@@ -293,6 +293,8 @@ var processLayer = function processLayer(layer) {
         for(var j=0; j < tiles.length; j += 1) {
             var gid = tiles[j].gid;
 
+            if (gid == 222) console.log(gid);
+
             if(mode === "client") {
                 // Set tile gid in the tilesheet
                 if(gid > 0) {
@@ -311,6 +313,7 @@ var processLayer = function processLayer(layer) {
             // Colliding tiles
             if(gid in collidingTiles) {
                 map.collisions.push(j);
+                console.log("pushed " + j);
             }
         }
     }
